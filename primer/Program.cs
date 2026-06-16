@@ -6,7 +6,8 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            double num1, num2, sum;
+            double num1, num2, result;
+            char operation;
             Console.Write("Введите первое число: ");
             while (!double.TryParse(Console.ReadLine(), out num1))
             {
@@ -17,8 +18,32 @@ namespace Calculator
             {
                 Console.WriteLine("Некорректный ввод. Попробуйте еще раз:");
             }
-            sum = num1 + num2;
-            Console.WriteLine($"Сумма: {num1} + {num2} = {sum}");
+            Console.Write("Введите операцию (+, -, *): ");
+            string inputOperation = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(inputOperation) || !"+-*".Contains(inputOperation))
+            {
+                Console.WriteLine("Некорректный символ операции. Попробуйте еще раз:");
+                inputOperation = Console.ReadLine();
+            }
+
+            operation = inputOperation[0];
+
+            switch (operation)
+            {
+                case '+':
+                    result = num1 + num2;
+                    Console.WriteLine($"Результат: {num1} + {num2} = {result}");
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    Console.WriteLine($"Результат: {num1} - {num2} = {result}");
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    Console.WriteLine($"Результат: {num1} * {num2} = {result}");
+                    break;
+            }
 
             Console.WriteLine("Нажмите любую клавишу для выхода...");
             Console.ReadKey();
