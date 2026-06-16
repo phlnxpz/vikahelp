@@ -18,10 +18,10 @@ namespace Calculator
             {
                 Console.WriteLine("Некорректный ввод. Попробуйте еще раз:");
             }
-            Console.Write("Введите операцию (+, -, *): ");
+            Console.Write("Введите операцию (+, -, *, /): ");
             string inputOperation = Console.ReadLine();
 
-            while (string.IsNullOrEmpty(inputOperation) || !"+-*".Contains(inputOperation))
+            while (string.IsNullOrEmpty(inputOperation) || !"+-*/".Contains(inputOperation))
             {
                 Console.WriteLine("Некорректный символ операции. Попробуйте еще раз:");
                 inputOperation = Console.ReadLine();
@@ -43,10 +43,26 @@ namespace Calculator
                     result = num1 * num2;
                     Console.WriteLine($"Результат: {num1} * {num2} = {result}");
                     break;
+                case '/':
+                    if (IsZero(num2))
+                    {
+                        Console.WriteLine("Ошибка: деление на ноль невозможно.");
+                    }
+                    else
+                    {
+                        result = num1 / num2;
+                        Console.WriteLine($"Результат: {num1} / {num2} = {result}");
+                    }
+                    break;
             }
 
             Console.WriteLine("Нажмите любую клавишу для выхода...");
             Console.ReadKey();
+        }
+        static bool IsZero(double number)
+        {
+            const double epsilon = 1e-10;
+            return Math.Abs(number) < epsilon;
         }
     }
 }
